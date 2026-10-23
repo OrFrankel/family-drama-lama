@@ -1,0 +1,17 @@
+# Render.com blueprint for the AI backend (free tier works).
+# Dashboard → New → Blueprint → pick this repo, then set ANTHROPIC_API_KEY when prompted.
+services:
+  - type: web
+    name: family-drama-lama
+    runtime: python
+    plan: free
+    buildCommand: pip install -r server/requirements.txt
+    startCommand: python server/app.py
+    healthCheckPath: /api/health
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false # entered in the Render dashboard, never committed
+      - key: ALLOWED_ORIGINS
+        value: https://orfrankel.github.io
+      - key: RATE_LIMIT_PER_MIN
+        value: "6"
